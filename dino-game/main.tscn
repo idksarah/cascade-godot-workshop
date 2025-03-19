@@ -1,82 +1,23 @@
-[gd_scene load_steps=10 format=4 uid="uid://cjhs2hxvg4k7y"]
+[gd_scene load_steps=6 format=3 uid="uid://cjhs2hxvg4k7y"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_htthd"]
-[ext_resource type="Script" path="res://player.gd" id="2_sxyh2"]
-[ext_resource type="Texture2D" uid="uid://cywh5bk04frac" path="res://icon.svg" id="3_hb00n"]
-[ext_resource type="Texture2D" uid="uid://c6prnk46buuja" path="res://bg.png" id="4_lf3qn"]
-[ext_resource type="Script" path="res://background.gd" id="5_rli3b"]
-[ext_resource type="Script" path="res://score.gd" id="6_xrxll"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nawij"]
-size = Vector2(120, 123)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4sdv7"]
-texture = ExtResource("4_lf3qn")
-0:10/0 = 0
-0:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-
-[sub_resource type="TileSet" id="TileSet_i74yn"]
-physics_layer_0/collision_layer = 1
-sources/2 = SubResource("TileSetAtlasSource_4sdv7")
+[ext_resource type="PackedScene" uid="uid://be2ok6fcymp0b" path="res://ground.tscn" id="3_eae4t"]
+[ext_resource type="PackedScene" uid="uid://xokd8ajq4pk3" path="res://bg.tscn" id="4_t0tbx"]
+[ext_resource type="PackedScene" uid="uid://dnpngly4lu31l" path="res://hud.tscn" id="5_2ptu0"]
+[ext_resource type="PackedScene" uid="uid://bgwpludiyie6i" path="res://player.tscn" id="6_0vwpt"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_htthd")
 
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("2_sxyh2")
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(579, 325)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_nawij")
+[node name="Player" parent="." instance=ExtResource("6_0vwpt")]
+position = Vector2(173, 514)
 
-[node name="Icon" type="Sprite2D" parent="Player"]
-position = Vector2(0, 2)
-texture = ExtResource("3_hb00n")
+[node name="Ground" parent="." instance=ExtResource("3_eae4t")]
+position = Vector2(9, 618)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-scale = Vector2(3, 3)
-tile_map_data = PackedByteArray("AAD9/wgAAgAAAAoAAAD+/wgAAgAAAAoAAAD//wgAAgAAAAoAAAAAAAgAAgAAAAoAAAABAAgAAgAAAAoAAAACAAgAAgAAAAoAAAADAAgAAgAAAAoAAAAEAAgAAgAAAAoAAAAFAAgAAgAAAAoAAAAGAAgAAgAAAAoAAAAHAAgAAgAAAAoAAAAIAAgAAgAAAAoAAAAJAAgAAgAAAAoAAAAKAAgAAgAAAAoAAAALAAgAAgAAAAoAAAAMAAgAAgAAAAoAAAANAAgAAgAAAAoAAAAOAAgAAgAAAAoAAAAPAAgAAgAAAAoAAAAQAAgAAgAAAAoAAAARAAgAAgAAAAoAAAASAAgAAgAAAAoAAAATAAgAAgAAAAoAAAAUAAgAAgAAAAoAAAAVAAgAAgAAAAoAAAAWAAgAAgAAAAoAAAAXAAgAAgAAAAoAAAAYAAgAAgAAAAoAAAAZAAgAAgAAAAoAAAAaAAgAAgAAAAoAAAAbAAgAAgAAAAoAAAAcAAgAAgAAAAoAAAAdAAgAAgAAAAoAAAAeAAgAAgAAAAoAAAAfAAgAAgAAAAoAAAAgAAgAAgAAAAoAAAAhAAgAAgAAAAoAAAAiAAgAAgAAAAoAAAAjAAgAAgAAAAoAAAAkAAgAAgAAAAoAAAAlAAgAAgAAAAoAAAAmAAgAAgAAAAoAAAAnAAgAAgAAAAoAAAAoAAgAAgAAAAoAAAApAAgAAgAAAAoAAAAqAAgAAgAAAAoAAAArAAgAAgAAAAoAAAAsAAgAAgAAAAoAAAAtAAgAAgAAAAoAAAAuAAgAAgAAAAoAAAAvAAgAAgAAAAoAAAAwAAgAAgAAAAoAAAAxAAgAAgAAAAoAAAAyAAgAAgAAAAoAAAAzAAgAAgAAAAoAAAA0AAgAAgAAAAoAAAA1AAgAAgAAAAoAAAA2AAgAAgAAAAoAAAA3AAgAAgAAAAoAAAA4AAgAAgAAAAoAAAA5AAgAAgAAAAoAAAA6AAgAAgAAAAoAAAA7AAgAAgAAAAoAAAA8AAgAAgAAAAoAAAA9AAgAAgAAAAoAAAA+AAgAAgAAAAoAAAA/AAgAAgAAAAoAAABAAAgAAgAAAAoAAABBAAgAAgAAAAoAAABCAAgAAgAAAAoAAABDAAgAAgAAAAoAAABEAAgAAgAAAAoAAABFAAgAAgAAAAoAAABGAAgAAgAAAAoAAABHAAgAAgAAAAoAAABIAAgAAgAAAAoAAABJAAgAAgAAAAoAAABKAAgAAgAAAAoAAABLAAgAAgAAAAoAAABMAAgAAgAAAAoAAABNAAgAAgAAAAoAAABOAAgAAgAAAAoAAABPAAgAAgAAAAoAAABQAAgAAgAAAAoAAABRAAgAAgAAAAoAAABSAAgAAgAAAAoAAABTAAgAAgAAAAoAAABUAAgAAgAAAAoAAABVAAgAAgAAAAoAAABWAAgAAgAAAAoAAABXAAgAAgAAAAoAAABYAAgAAgAAAAoAAABZAAgAAgAAAAoAAABaAAgAAgAAAAoAAABbAAgAAgAAAAoAAABcAAgAAgAAAAoAAABdAAgAAgAAAAoAAABeAAgAAgAAAAoAAAA=")
-tile_set = SubResource("TileSet_i74yn")
+[node name="ParallaxBackground" parent="." instance=ExtResource("4_t0tbx")]
 
-[node name="Background" type="ParallaxBackground" parent="."]
-script = ExtResource("5_rli3b")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-motion_mirroring = Vector2(1200, 0)
-
-[node name="ColorRect" type="ColorRect" parent="Background/ParallaxLayer"]
-offset_left = -145.0
-offset_top = -393.0
-offset_right = 2065.0
-offset_bottom = 383.0
-color = Color(0.373384, 0.512843, 0.549041, 1)
-
-[node name="ColorRect" type="ColorRect" parent="Background/ParallaxLayer/ColorRect"]
-offset_left = 720.0
-offset_top = 324.0
-offset_right = 1487.0
-offset_bottom = 451.0
-color = Color(0.785363, 0.870125, 0.892751, 1)
-
-[node name="Icon" type="Sprite2D" parent="Background"]
-position = Vector2(470.5, 298.5)
-scale = Vector2(0.648438, 0.710938)
-texture = ExtResource("3_hb00n")
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="Timer" type="Timer" parent="Node2D"]
-
-[node name="Control" type="Control" parent="Node2D"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Score" type="Label" parent="Node2D/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("6_xrxll")
-
-[connection signal="timeout" from="Node2D/Timer" to="." method="_on_timer_timeout"]
+[node name="HUD" parent="." instance=ExtResource("5_2ptu0")]

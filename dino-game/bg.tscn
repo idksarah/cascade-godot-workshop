@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://xokd8ajq4pk3"]
+
+[ext_resource type="Texture2D" uid="uid://b8bsio0i5is1h" path="res://bg.webp" id="1_3eho7"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+position = Vector2(2, 0)
+motion_mirroring = Vector2(1080, 0)
+
+[node name="Bg" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(-2, 0)
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("1_3eho7")
+centered = false
