@@ -4,6 +4,7 @@ var obstacle = preload("res://obstacle.tscn")
 
 const player_start_pos := Vector2i(150, 485)
 const camera_start_pos := Vector2i(193, 324)
+const ground_start_pos := Vector2(9, 618)
 
 var speed : float
 const start_speed : float  = 12.0
@@ -18,6 +19,7 @@ var score : float
 var game_running = false
 var last_obs_position : Vector2i
 var start = true
+var should_restart = false
 
 func _ready():
 	screen_size = get_window().size
@@ -27,9 +29,9 @@ func _ready():
 func new_game():
 	score = 0
 	$Player.position = player_start_pos
-	$Player. velocity = start_speed
+	$Player.velocity = start_speed
 	$Player.position = camera_start_pos
-	# missing ground but idc
+	$Ground.position = ground_start_pos
 	
 func _process(delta):
 	if game_running:
@@ -37,7 +39,7 @@ func _process(delta):
 		if speed > max_speed:
 			speed = max_speed
 		
-		score+= 1
+		score+= .5
 		show_score()
 	
 		$Player.position.x += speed
@@ -47,6 +49,9 @@ func _process(delta):
 			$Ground.position.x += screen_size.x
 		
 		create_obstacles()
+		print(should_restart)
+		if should_restart:
+			restart()
 	else:
 		if Input.is_action_just_pressed("Jump"):
 			game_running = true
@@ -56,16 +61,14 @@ func show_score():
 	$HUD.get_node("Score").text = "SCORE: " + str(round(score))
 	
 func create_obstacles():
-	print(last_obs_position.x)
-	print($Player.position.x)
 	
 	# Spawn obstacles every time the player moves forward, but ensure that obstacles are placed ahead of the player
-	if start or last_obs_position.x < $Player.position.x + randi_range(800, 500):  # Spawn based on player's position
+	if start or last_obs_position.x < $Player.position.x  + randi_range(100, 200):  # Spawn based on player's position
 		start = false
 		var obs = obstacle.instantiate()
 		
 		# Calculate the X position based on the player's position, plus some offset for spacing
-		var obs_x = $Player.position.x + randi_range(300, 500)  # Random gap ahead of player
+		var obs_x = $Player.position.x + randi_range(600, 2000)  # Random gap ahead of player
 		
 		# Get the obstacle's height and scale to position it correctly
 		var obs_height = obs.get_node("Sprite2D").texture.get_height()
@@ -78,4 +81,14 @@ func create_obstacles():
 func add_obstacles(obs, x, y):
 	obs.position = Vector2i(x, y)
 	add_child(obs)
+	obs.body_entered.connect(restart)
 	last_obs_position = obs.position  # Update last obstacle position
+	
+func restart():
+	score = 0
+	$Player.position = player_start_pos
+	$Camera2D.position = camera_start_pos
+	$Player.velocity = Vector2i(0,0)
+	$Ground.position = ground_start_pos
+	should_restart = false
+	#$Player.velocity = start_speed
