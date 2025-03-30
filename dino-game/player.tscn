@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bgwpludiyie6i"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_o0vjm"]
-[ext_resource type="Texture2D" uid="uid://cywh5bk04frac" path="res://icon.svg" id="1_qakjw"]
+[ext_resource type="Texture2D" uid="uid://b35wee2rrtcei" path="res://orpheus.png" id="3_fj0yh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b36me"]
 size = Vector2(78, 74)
@@ -11,14 +11,13 @@ size = Vector2(78, 74)
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_o0vjm")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(3, 2)
-scale = Vector2(0.703125, 0.703125)
-texture = ExtResource("1_qakjw")
-
 [node name="Run_col" type="CollisionShape2D" parent="."]
 position = Vector2(4, 3)
 shape = SubResource("RectangleShape2D_b36me")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8x7th")
+
+[node name="Orpheus" type="Sprite2D" parent="."]
+scale = Vector2(0.163, 0.15)
+texture = ExtResource("3_fj0yh")

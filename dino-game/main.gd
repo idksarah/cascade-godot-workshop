@@ -61,16 +61,13 @@ func show_score():
 	$HUD.get_node("Score").text = "SCORE: " + str(round(score))
 	
 func create_obstacles():
-	
-	# Spawn obstacles every time the player moves forward, but ensure that obstacles are placed ahead of the player
-	if start or last_obs_position.x < $Player.position.x  + randi_range(100, 200):  # Spawn based on player's position
+	if start or last_obs_position.x < $Player.position.x  + randi_range(100, 200):
 		start = false
 		var obs = obstacle.instantiate()
 		
-		# Calculate the X position based on the player's position, plus some offset for spacing
-		var obs_x = $Player.position.x + randi_range(600, 2000)  # Random gap ahead of player
+		var obs_x = $Player.position.x + randi_range(600, 2000)
 		
-		# Get the obstacle's height and scale to position it correctly
+		# Get the obstacle's height and scale to p	osition it correctly
 		var obs_height = obs.get_node("Sprite2D").texture.get_height()
 		var obs_scale = obs.get_node("Sprite2D").scale
 		var obs_y = screen_size.y - (obs_height * obs_scale.y / 2) - 20

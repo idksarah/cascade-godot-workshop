@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpafvepkfark8"
-path="res://.godot/imported/octopus.jpg-cbae0a74c59acf9f0c70ca18d138d91b.ctex"
+uid="uid://b35wee2rrtcei"
+path="res://.godot/imported/orpheus.png-68991e5b019eed92633691a4a4da11f3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://octopus.jpg"
-dest_files=["res://.godot/imported/octopus.jpg-cbae0a74c59acf9f0c70ca18d138d91b.ctex"]
+source_file="res://orpheus.png"
+dest_files=["res://.godot/imported/orpheus.png-68991e5b019eed92633691a4a4da11f3.ctex"]
 
 [params]
 
